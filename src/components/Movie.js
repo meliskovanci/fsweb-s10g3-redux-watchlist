@@ -1,7 +1,15 @@
 import { movies } from "./../movies";
 
-export default function Movie(props) {
-  const movie = movies[props.sira];
+export default function Movie({ sira, setSira }) {
+  const movie = movies[sira];
+
+  function sonrakiFilm() {
+    sira < movies.length - 1 && setSira(sira + 1);
+  }
+
+  const oncekiFilm = () => {
+    sira > 0 && setSira(sira - 1);
+  };
 
   return (
     <div className="flex bg-white shadow-lg items-start">
@@ -23,6 +31,24 @@ export default function Movie(props) {
         <div className="flex text-sm gap-1 justify-end">
           <span className="block px-2 py-1 rounded-md border border-zinc-400">{movie.year}</span>
           <span className="block px-2 py-1 rounded-md border border-zinc-400">{movie.runtime}dk</span>
+        </div>
+        <div className="flex justify-between">
+          {sira !== 0 && (
+            <button
+              onClick={oncekiFilm}
+              className="px-2 py-1 rounded-md border-2 border-[#A1A1AA] hover:bg-[#A1A1AA] hover:text-[#ffffff]"
+            >
+              Önceki
+            </button>
+          )}
+          {sira !== movies.length - 1 && (
+            <button
+              onClick={sonrakiFilm}
+              className="px-2 py-1 ml-2 rounded-md border-2 border-[#A1A1AA] hover:bg-[#A1A1AA] hover:text-[#ffffff]"
+            >
+              Sonraki
+            </button>
+          )}
         </div>
       </div>
     </div>
